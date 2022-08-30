@@ -7,6 +7,7 @@ const getTodos = async (req: Request, res: Response): Promise<void> => {
         const todos: ITodo[] = await Todo.find()
         res.status(200).send({
             todo: todos,
+            
             statusCode: 200,
             message: 'successfully',
 
@@ -17,18 +18,16 @@ const getTodos = async (req: Request, res: Response): Promise<void> => {
 }
 
 const addTodo = async (req: Request, res: Response): Promise<void> => {
+    const {name, description, status} = req.body
     try {
-        const body = req.body as Pick<ITodo, 'name' | 'description' | 'status'>
-
+        // const body = req.body as Pick<ITodo, 'name' | 'description' | 'status'>
         const todo: ITodo = new Todo({
-            name: body.name,
-            description: body.description,
-            status: body.status,
+            name: name,
+            description: description,
+            status: status,
         }) 
-
         const newTodo: ITodo = await todo.save()
         // const allTodos: ITodo[] = await Todo.find()
-
         res.status(201).send({ 
             todo: newTodo,
             statusCode: 201,
