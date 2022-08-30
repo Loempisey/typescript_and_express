@@ -1,13 +1,13 @@
 import express, { Express, Request, Response } from "express";
-import morgan from 'morgan';
-import mongoose from "mongoose";
-import cors from "cors";
-import http from 'http';
+import morgan from "morgan";
 import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import http from 'http';
+import cors from "cors";
 import todoRoutes from './routes/todo.routes'
 
 const app: Express = express()
-// const server = http.createServer(app);
+const server = http.createServer(app);
 const PORT: string | number = process.env.PORT || 4000
 
 dotenv.config({path:'nodemon.json'})
@@ -41,6 +41,6 @@ app.get('/', (req: Request, res: Response)=>{
   res.send("WELCOME TO API")
 })
 
-app.listen(PORT, (): void=>{
+server.listen(PORT, (): void=>{
   console.log(`The server is starting at http://localhost: ${PORT}`)
 })
